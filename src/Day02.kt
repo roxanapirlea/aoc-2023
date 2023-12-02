@@ -13,15 +13,21 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        return input.sumOf { line ->
+            val (_, sets) = line.mapToSets()
+            val power = sets.maxBy { it.r }.r * sets.maxBy { it.g }.g * sets.maxBy { it.b }.b
+            power
+        }
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day02_test")
     check(part1(testInput) == 8)
+    check(part2(testInput) == 2286)
 
     val input = readInput("Day02")
     part1(input).println()
+    part2(input).println()
 }
 
 private fun String.mapToSets(): Pair<Int, List<Cubes>> {
